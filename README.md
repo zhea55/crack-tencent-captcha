@@ -12,4 +12,4 @@
 6. 模拟鼠标拖拽动作
 
 
-<img src="./demo/demo.png" alt="demo" style="width:200px;"/>
+<img src="./demo/demo.png" alt="demo" />
