@@ -1,0 +1,38 @@
+{
+  "name": "crack-tecent-captcha",
+  "version": "1.0.0",
+  "description": "破解腾讯验证码",
+  "main": "index.js",
+  "type": "module",
+  "license": "gpl-3.0",
+  "private": false,
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": "",
+  "keywords": [],
+  "author": {
+    "name": "",
+    "email": "",
+    "url": ""
+  },
+  "contributors": [],
+  "scripts": {
+    "dev": "npx concurrently --kill-others \"npm run watch\" \"npx dev-server\"",
+    "test": "",
+    "watch": "esbuild --bundle src/app.js --outfile=dist/bundle.js --packages=external --watch",
+    "build": "esbuild --bundle src/app.js --outfile=dist/bundle.js --packages=external --minify"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "dev-server": "^0.2.0",
+    "esbuild": "^0.16.6",
+    "prettier": "^2.8.1"
+  }
+}
