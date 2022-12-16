@@ -24,15 +24,29 @@
   },
   "contributors": [],
   "scripts": {
-    "dev": "npx concurrently --kill-others \"npm run watch\" \"npx dev-server\"",
-    "test": "",
-    "watch": "esbuild --bundle src/app.js --outfile=dist/bundle.js --packages=external --watch",
-    "build": "esbuild --bundle src/app.js --outfile=dist/bundle.js --packages=external --minify"
+    "dev": "node ./config/dev.js -w",
+    "build": "./config/build.js && npx esbuild library/opencv.js --minify --outdir=dist/js",
+    "copy": "npx copy-files-from-to",
+    "rome:format": "npx rome format ."
   },
   "devDependencies": {
     "concurrently": "^7.6.0",
-    "dev-server": "^0.2.0",
+    "copy-files-from-to": "^3.6.0",
     "esbuild": "^0.16.6",
-    "prettier": "^2.8.1"
+    "esbuild-serve": "^1.0.1",
+    "rome": "^0.10.1"
+  },
+  "copyFiles": [
+    {
+      "from": "template/index.html",
+      "to": "dist/index.html"
+    },
+    {
+      "from": "assets/*",
+      "to": "dist/assets/"
+    }
+  ],
+  "copyFilesSettings": {
+    "whenFileExists": "overwrite"
   }
 }
