@@ -1,6 +1,6 @@
 {
-  "name": "crack-tecent-captcha",
-  "version": "1.0.0",
+  "name": "@zhea55/crack-tencent-captcha",
+  "version": "0.0.1",
   "description": "破解腾讯验证码",
   "main": "index.js",
   "type": "module",
@@ -25,7 +25,8 @@
   "contributors": [],
   "scripts": {
     "start": "node app.js",
-    "rome:format": "npx rome format ."
+    "rome:format": "npx rome format .",
+    "postinstall": "npx build-opencv --version 4.6.0 build"
   },
   "devDependencies": {
     "rome": "^11.0.0"
