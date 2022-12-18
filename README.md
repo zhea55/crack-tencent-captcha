@@ -11,11 +11,11 @@
 
 
 
-输入图片：
-<img src="./images/sample1.png" alt="sample1" />
+输入图片：<br />
+<img src="./images/sample/sample1.png" alt="sample1" />
 
-结果：
-<img src="./images/sample1-edge-contour.png" alt="sample1-edge-contour" />
+结果：<br />
+<img src="./images/results/sample1-edge-contour.png" alt="sample1-edge-contour" />
 
 
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
