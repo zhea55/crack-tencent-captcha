@@ -1,5 +1,5 @@
 import cv from '@u4/opencv4nodejs';
-import { getContour, getPercentageX } from './index.js';
+import { getContour, getContours, getPercentageX } from './index.js';
 import { parse, extname, join } from 'path';
 
 function getOutputFileName(imagePath, outputDir, imageType) {
@@ -10,30 +10,36 @@ function getOutputFileName(imagePath, outputDir, imageType) {
 
 async function main() {
   try {
-    const SAMPLE_IMG_PATH = 'images/sample/sample7.png';
+    const SAMPLE_IMG_PATH = 'images/sample/sample4.png';
     const OUTPUT_DIR = 'images/results/';
 
     const sourceImg = await cv.imreadAsync(SAMPLE_IMG_PATH);
-    
-    const theContour = await getContour(sourceImg);
 
-    const color = new cv.Vec3(
-      Math.round(Math.random() * 255),
-      Math.round(Math.random() * 255),
-      Math.round(Math.random() * 255)
-    );
+    // const theContour = await getContour(sourceImg);
 
-    const tmp = theContour.approxPolyDP(5, true);
+    const contours = await getContours(sourceImg)
 
     const edgeContoursImg = new cv.Mat(
       sourceImg.rows,
       sourceImg.cols,
       cv.CV_8UC3
     );
-    edgeContoursImg.drawContours([tmp], -1, color, {
-      thickness: 1,
-      maxLevel: 0
-    });
+
+    contours.forEach((cnt) => {
+      const color = new cv.Vec3(
+        Math.round(Math.random() * 255),
+        Math.round(Math.random() * 255),
+        Math.round(Math.random() * 255)
+      );
+  
+      console.log(cnt.getPoints().length)
+      edgeContoursImg.drawContours([cnt.getPoints()], -1, color, {
+        thickness: 1,
+        maxLevel: 0
+      });
+    })
+
+    
 
     await cv.imwriteAsync(
       getOutputFileName(SAMPLE_IMG_PATH, OUTPUT_DIR, 'edge-contour'),

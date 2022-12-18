@@ -1,4 +1,5 @@
 import cv from '@u4/opencv4nodejs';
+
 async function preprocessImage(sourceImg) {
   const outImg = sourceImg.resize(sourceImg.rows, sourceImg.cols);
 
@@ -19,12 +20,25 @@ async function preprocessImage(sourceImg) {
   return thresh;
 }
 
+
 async function getContour(sourceImg) {
+
+  const contours = await getContours(sourceImg)
+
+  if (contours.length) {
+    return contours[0]
+  }
+  throw new Error('没有解析到合适的图像')
+}
+
+async function getContours(sourceImg) {
   const thresh = await preprocessImage(sourceImg);
 
   const contours = thresh.findContours(cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE);
 
-  return contours.find((cnt) => {
+  const outContours = [];
+
+  contours.forEach((cnt) => {
     const rect = cnt.boundingRect();
 
     const minX = thresh.cols * 0.2;
@@ -33,18 +47,26 @@ async function getContour(sourceImg) {
     const minY = thresh.rows * 0.16;
     const maxY = thresh.rows - minY;
 
-    return (
+    const tmp = cnt.approxPolyDPContour(5, true);
+
+    const rows = tmp.getPoints().length;
+
+    if (
       cnt.area > 3000 &&
       cnt.area < 10000 &&
       rect.x > minX &&
       rect.x < maxX &&
       rect.y > minY &&
-      rect.y < maxY
-    );
+      rect.y < maxY &&
+      rows >= 3 &&
+      rows <= 10
+    ) {
+      outContours.push(tmp);
+    }
   });
+
+  return outContours;
 }
-
-
 
 async function getPercentageX(imgPath) {
   const sourceImg = await cv.imreadAsync(imgPath);
@@ -53,4 +75,4 @@ async function getPercentageX(imgPath) {
   return theContour.boundingRect().x / sourceImg.cols;
 }
 
-export { getContour, getPercentageX };
+export { getContour, getContours, getPercentageX };

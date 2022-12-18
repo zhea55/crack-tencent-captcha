@@ -13,7 +13,7 @@
   "homepage": "",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:zhea55/crack-tencent-captcha.git"
   },
   "bugs": "",
   "keywords": [],
@@ -25,11 +25,10 @@
   "contributors": [],
   "scripts": {
     "start": "node app.js",
-    "rome:format": "npx rome format .",
-    "buildopencv": "npm link && npx build-opencv --version 4.6.0 rebuild"
+    "rome:format": "npx rome format ."
   },
   "devDependencies": {
-    "rome": "^0.10.1"
+    "rome": "^11.0.0"
   },
   "opencv4nodejs": {
     "autoBuildOpencvVersion": "4.6.0"
